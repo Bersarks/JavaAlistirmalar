@@ -6,15 +6,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-	static void updateCategoryArray(ArrayList<Category> categoryArrayList, Movie newMovie){
-			for (int i = 0; i < newMovie.getCategoryArray().size(); i++) {
-				for (int k = 0; k < categoryArrayList.size(); k++) {
-					if (newMovie.getCategoryArray().get(i).getName().equals(categoryArrayList.get(k).getName())) {
-						categoryArrayList.get(k).setMovieCount();
-					}
+	static void updateCategoryArray(ArrayList<Category> categoryArrayList, Movie newMovie) {
+		for (int i = 0; i < newMovie.getCategoryArray().size(); i++) {
+			for (int k = 0; k < categoryArrayList.size(); k++) {
+				if (newMovie.getCategoryArray().get(i).getName().equals(categoryArrayList.get(k).getName())) {
+					categoryArrayList.get(k).setMovieCount();
 				}
 			}
+		}
 	}
+
 	static void showPlatforms(ArrayList<Platform> platformArrayList) {
 		if (platformArrayList.size() == 0) {
 			System.out.println("There are no platforms");
@@ -24,6 +25,7 @@ public class Main {
 			System.out.println(i + ". " + platformArrayList.get(i).toString());
 		}
 	}
+
 	static void listCategories(ArrayList<Category> categoryArrayList) {
 		if (categoryArrayList.size() == 0) {
 			System.out.println("There are no categories");
@@ -33,6 +35,7 @@ public class Main {
 			System.out.println(i + ". " + categoryArrayList.get(i).toString());
 		}
 	}
+
 	static void showCategories(ArrayList<Category> categoryArrayList, ArrayList<Movie> movieArrayList) {
 		int exitStatus = 1;
 		String input;
@@ -44,7 +47,7 @@ public class Main {
 		for (int i = 0; i < categoryArrayList.size(); i++) {
 			System.out.println(i + ". " + categoryArrayList.get(i).toString());
 		}
-		while (exitStatus == 1){
+		while (exitStatus == 1) {
 			System.out.println("Select a category to see movies. Press Q/q to exit");
 			try {
 				input = scn.nextLine();
@@ -59,6 +62,7 @@ public class Main {
 			}
 		}
 	}
+
 	static void showSelectedCategoryMovies(ArrayList<Movie> movieArrayList, ArrayList<Category> categoryArrayList, int selectedCategoryIndex) {
 		if (categoryArrayList.size() == 0) {
 			System.out.println("There are no categories");
@@ -80,6 +84,7 @@ public class Main {
 			}
 		}
 	}
+
 	static void showMovies(ArrayList<Movie> movieArrayList) {
 		if (movieArrayList.size() == 0) {
 			System.out.println("There are no movies");
@@ -89,7 +94,8 @@ public class Main {
 			System.out.println(i + ". " + movieArrayList.get(i).toString());
 		}
 	}
-	static Movie addMovie(ArrayList<Category> categoryArrayList, ArrayList<Platform> platformArrayList){
+
+	static Movie addMovie(ArrayList<Category> categoryArrayList, ArrayList<Platform> platformArrayList) {
 		Scanner scn = new Scanner(System.in);
 		System.out.println("Please enter the name of the movie you would like to add");
 		String movieName = scn.nextLine();
@@ -106,7 +112,7 @@ public class Main {
 		int platformNumber = scn.nextInt();
 		ArrayList<Category> movieCategoryArray = new ArrayList<>();
 		listCategories(categoryArrayList);
-		while (categoryNumber > 0){
+		while (categoryNumber > 0) {
 			System.out.println("Please enter the number of the category you would like to add");
 			int categoryIndex = scn.nextInt();
 			movieCategoryArray.add(categoryArrayList.get(categoryIndex));
@@ -114,7 +120,7 @@ public class Main {
 		}
 		ArrayList<Platform> moviePlatformArray = new ArrayList<>();
 		showPlatforms(platformArrayList);
-		while (platformNumber > 0){
+		while (platformNumber > 0) {
 			System.out.println("Please enter the number of the platform you would like to add");
 			int platformIndex = scn.nextInt();
 			moviePlatformArray.add(platformArrayList.get(platformIndex));
@@ -122,8 +128,9 @@ public class Main {
 		}
 		return new Movie(movieName, movieDirector, movieYear, movieCategoryArray, movieTime, moviePlatformArray);
 	}
+
 	static void addPlatform(ArrayList<Platform> platformArrayList) {
-		int exitStatus= 1;
+		int exitStatus = 1;
 		while (exitStatus == 1) {
 			Scanner scn = new Scanner(System.in);
 			System.out.println("Please enter the name of the platform you would like to add");
@@ -143,8 +150,9 @@ public class Main {
 			}
 		}
 	}
+
 	static void addCategory(ArrayList<Category> categoryArrayList) {
-		int exitStatus= 1;
+		int exitStatus = 1;
 		while (exitStatus == 1) {
 			Scanner scn = new Scanner(System.in);
 			System.out.println("Please enter the name of the category you would like to add");
@@ -164,6 +172,7 @@ public class Main {
 			}
 		}
 	}
+
 	static ArrayList<Category> adminPanel(ArrayList<Category> categoryArrayList, ArrayList<Platform> platformArrayList, ArrayList<Movie> movieArrayList) {
 		int adminChoice;
 		int exitStatus = 1;
@@ -187,24 +196,23 @@ public class Main {
 					addPlatform(platformArrayList);
 					break;
 				case 3:
-					if (categoryArrayList.size() == 0 || platformArrayList.size() == 0){
+					if (categoryArrayList.size() == 0 || platformArrayList.size() == 0) {
 						System.out.println("You must add at least one category and platform before adding a movie!");
 						break;
 					}
 					int movieStatus = 1;
-					while (movieStatus == 1){
+					while (movieStatus == 1) {
 						newMovie = addMovie(categoryArrayList, platformArrayList);
 						movieArrayList.add(newMovie);
 						updateCategoryArray(categoryArrayList, newMovie);
 						System.out.println("Would you like to add another movie? (1 for yes, 0 for no)");
-						try{
+						try {
 							movieStatus = scn.nextInt();
 							if (movieStatus != 0 && movieStatus != 1) {
 								System.out.println("Invalid input detected, exiting to admin panel");
 								break;
 							}
-						}
-						catch (Exception e){
+						} catch (Exception e) {
 							System.out.println("Invalid input detected, exiting to admin panel");
 							movieStatus = 0;
 						}
@@ -230,7 +238,8 @@ public class Main {
 		}
 		return categoryArrayList;
 	}
-	static void userPanel(ArrayList<Category> categoryArrayList, ArrayList<Platform> platformArrayList, ArrayList<Movie> movieArrayList){
+
+	static void userPanel(ArrayList<Category> categoryArrayList, ArrayList<Platform> platformArrayList, ArrayList<Movie> movieArrayList) {
 		int userChoice;
 		int exitStatus = 1;
 		while (exitStatus == 1) {
@@ -261,12 +270,13 @@ public class Main {
 			}
 		}
 	}
+
 	public static void main(String[] args) throws Exception {
 		int exitStatus = 1, userChoice;
 		Category asd = new Category();
 		ArrayList<Category> categoryArrayList = new ArrayList<>();
 		ArrayList<Platform> platformArrayList = new ArrayList<>();
-		ArrayList<Movie> movieArrayList= new ArrayList<>();
+		ArrayList<Movie> movieArrayList = new ArrayList<>();
 
 		System.out.println("Welcome to Movie Finder");
 		while (exitStatus != 0) {
