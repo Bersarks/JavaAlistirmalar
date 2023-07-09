@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-
 	static void updateCategoryArray(ArrayList<Category> categoryArrayList, Movie newMovie){
 			for (int i = 0; i < newMovie.getCategoryArray().size(); i++) {
 				for (int k = 0; k < categoryArrayList.size(); k++) {
@@ -25,13 +24,60 @@ public class Main {
 			System.out.println(i + ". " + platformArrayList.get(i).toString());
 		}
 	}
-	static void showCategories(ArrayList<Category> categoryArrayList) {
+	static void listCategories(ArrayList<Category> categoryArrayList) {
 		if (categoryArrayList.size() == 0) {
 			System.out.println("There are no categories");
 			return;
 		}
 		for (int i = 0; i < categoryArrayList.size(); i++) {
 			System.out.println(i + ". " + categoryArrayList.get(i).toString());
+		}
+	}
+	static void showCategories(ArrayList<Category> categoryArrayList, ArrayList<Movie> movieArrayList) {
+		int exitStatus = 1;
+		String input;
+		Scanner scn = new Scanner(System.in);
+		if (categoryArrayList.size() == 0) {
+			System.out.println("There are no categories");
+			return;
+		}
+		for (int i = 0; i < categoryArrayList.size(); i++) {
+			System.out.println(i + ". " + categoryArrayList.get(i).toString());
+		}
+		while (exitStatus == 1){
+			System.out.println("Select a category to see movies. Press Q/q to exit");
+			try {
+				input = scn.nextLine();
+				if (input.equals("q") || input.equals("Q")) {
+					exitStatus = 0;
+					break;
+				}
+				showSelectedCategoryMovies(movieArrayList, categoryArrayList, Integer.parseInt(input));
+			} catch (Exception e) {
+				System.out.println("Invalid category index");
+				exitStatus = 1;
+			}
+		}
+	}
+	static void showSelectedCategoryMovies(ArrayList<Movie> movieArrayList, ArrayList<Category> categoryArrayList, int selectedCategoryIndex) {
+		if (categoryArrayList.size() == 0) {
+			System.out.println("There are no categories");
+			return;
+		}
+		if (movieArrayList.size() == 0) {
+			System.out.println("There are no movies");
+			return;
+		}
+		if (selectedCategoryIndex < 0 || selectedCategoryIndex >= categoryArrayList.size()) {
+			System.out.println("Invalid category index");
+			return;
+		}
+		for (int i = 0; i < movieArrayList.size(); i++) {
+			for (int k = 0; k < movieArrayList.get(i).getCategoryArray().size(); k++) {
+				if (movieArrayList.get(i).getCategoryArray().get(k).getName().equals(categoryArrayList.get(selectedCategoryIndex).getName())) {
+					System.out.println(i + ". " + movieArrayList.get(i).toString());
+				}
+			}
 		}
 	}
 	static void showMovies(ArrayList<Movie> movieArrayList) {
@@ -59,7 +105,7 @@ public class Main {
 		System.out.println("Please enter the number of platforms you would like to add");
 		int platformNumber = scn.nextInt();
 		ArrayList<Category> movieCategoryArray = new ArrayList<>();
-		showCategories(categoryArrayList);
+		listCategories(categoryArrayList);
 		while (categoryNumber > 0){
 			System.out.println("Please enter the number of the category you would like to add");
 			int categoryIndex = scn.nextInt();
@@ -85,7 +131,16 @@ public class Main {
 			Platform newPlatform = new Platform(platformName);
 			platformArrayList.add(newPlatform);
 			System.out.println("Would you like to add another platform? (1 for yes, 0 for no)");
-			exitStatus = scn.nextInt();
+			try {
+				exitStatus = scn.nextInt();
+				if (exitStatus != 0 && exitStatus != 1) {
+					System.out.println("Invalid input detected, exiting to admin panel");
+					break;
+				}
+			} catch (Exception e) {
+				System.out.println("Invalid input detected, exiting to admin panel");
+				exitStatus = 0;
+			}
 		}
 	}
 	static void addCategory(ArrayList<Category> categoryArrayList) {
@@ -97,7 +152,16 @@ public class Main {
 			Category newCategory = new Category(categoryName);
 			categoryArrayList.add(newCategory);
 			System.out.println("Would you like to add another category? (1 for yes, 0 for no)");
-			exitStatus = scn.nextInt();
+			try {
+				exitStatus = scn.nextInt();
+				if (exitStatus != 0 && exitStatus != 1) {
+					System.out.println("Invalid input detected, exiting to admin panel");
+					break;
+				}
+			} catch (Exception e) {
+				System.out.println("Invalid input detected, exiting to admin panel");
+				exitStatus = 0;
+			}
 		}
 	}
 	static ArrayList<Category> adminPanel(ArrayList<Category> categoryArrayList, ArrayList<Platform> platformArrayList, ArrayList<Movie> movieArrayList) {
@@ -133,11 +197,21 @@ public class Main {
 						movieArrayList.add(newMovie);
 						updateCategoryArray(categoryArrayList, newMovie);
 						System.out.println("Would you like to add another movie? (1 for yes, 0 for no)");
-						movieStatus = scn.nextInt();
+						try{
+							movieStatus = scn.nextInt();
+							if (movieStatus != 0 && movieStatus != 1) {
+								System.out.println("Invalid input detected, exiting to admin panel");
+								break;
+							}
+						}
+						catch (Exception e){
+							System.out.println("Invalid input detected, exiting to admin panel");
+							movieStatus = 0;
+						}
 					}
 					break;
 				case 4:
-					showCategories(categoryArrayList);
+					showCategories(categoryArrayList, movieArrayList);
 					break;
 				case 5:
 					showPlatforms(platformArrayList);
@@ -169,7 +243,7 @@ public class Main {
 			userChoice = scn.nextInt();
 			switch (userChoice) {
 				case 1:
-					showCategories(categoryArrayList);
+					showCategories(categoryArrayList, movieArrayList);
 					break;
 				case 2:
 					showPlatforms(platformArrayList);
@@ -187,7 +261,7 @@ public class Main {
 			}
 		}
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		int exitStatus = 1, userChoice;
 		Category asd = new Category();
 		ArrayList<Category> categoryArrayList = new ArrayList<>();
