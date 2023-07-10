@@ -58,4 +58,16 @@ public class TransferHistory {
 	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
+
+	@Override
+	public String toString() {
+		return "TransferHistory{" +
+				"fromTeam=" + fromTeam +
+				", player=" + player +
+				", year=" + year +
+				", fee=" + fee +
+				", transferHistories=" + transferHistories +
+				", currency='" + currency + '\'' +
+				'}';
+	}
 }
