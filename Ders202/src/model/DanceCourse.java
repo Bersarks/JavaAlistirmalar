@@ -84,4 +84,19 @@ public class DanceCourse {
 	public void setStudentList(List<Student> studentList) {
 		this.studentList = studentList;
 	}
+
+	@Override
+	public String toString() {
+		return "DanceCourse{" +
+				"name='" + name + '\'' +
+				", address='" + address + '\'' +
+				", founder='" + founder + '\'' +
+				", taxNumber='" + taxNumber + '\'' +
+				", taxOffice='" + taxOffice + '\'' +
+				", bankAccountList=" + bankAccountList +
+				", paymentMovementList=" + paymentMovementList +
+				", instructorList=" + instructorList +
+				", studentList=" + studentList +
+				'}';
+	}
 }

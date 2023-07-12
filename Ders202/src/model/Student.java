@@ -67,4 +67,17 @@ public class Student {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+
+	@Override
+	public String toString() {
+		return "Student{" +
+				"name='" + name + '\'' +
+				", age=" + age +
+				", sex=" + sex +
+				", isPaid=" + isPaid +
+				", contractAmount=" + contractAmount +
+				", startDate=" + startDate +
+				", endDate=" + endDate +
+				'}';
+	}
 }
