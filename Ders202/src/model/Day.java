@@ -1,0 +1,5 @@
+package model;
+
+public enum Day {
+	MONDAT, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+}
