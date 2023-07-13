@@ -1,13 +1,14 @@
 package model;
 
 import java.util.List;
+import java.util.Set;
 
 public class Lecture {
 	private String name;
 	private Instructor instructor;
 	private Branch branch;
 	private int capacity;
-	private List<LectureScheduleTime> lectureScheduleTimeList;
+	private Set<LectureScheduleTime> lectureScheduleTimeList;
 	private List<Student> studentList;
 
 	public String getName() {
@@ -42,11 +43,11 @@ public class Lecture {
 		this.capacity = capacity;
 	}
 
-	public List<LectureScheduleTime> getLectureScheduleTimeList() {
+	public Set<LectureScheduleTime> getLectureScheduleTimeList() {
 		return lectureScheduleTimeList;
 	}
 
-	public void setLectureScheduleTimeList(List<LectureScheduleTime> lectureScheduleTimeList) {
+	public void setLectureScheduleTimeList(Set<LectureScheduleTime> lectureScheduleTimeList) {
 		this.lectureScheduleTimeList = lectureScheduleTimeList;
 	}
 

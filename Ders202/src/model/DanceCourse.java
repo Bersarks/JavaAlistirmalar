@@ -1,5 +1,6 @@
 package model;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class DanceCourse {
@@ -8,10 +9,13 @@ public class DanceCourse {
 	private String founder;
 	private String taxNumber;
 	private String taxOffice;
+	private BigDecimal totalBalance;
 	private List<BankAccount> bankAccountList;
 	private List<PaymentMovement> paymentMovementList;
 	private List<Instructor> instructorList;
 	private List<Student> studentList;
+
+	private List<Lecture> lectureList;
 
 	public String getName() {
 		return name;
@@ -53,6 +57,14 @@ public class DanceCourse {
 		this.taxOffice = taxOffice;
 	}
 
+	public BigDecimal getTotalBalance() {
+		return totalBalance;
+	}
+
+	public void setTotalBalance(BigDecimal totalBalance) {
+		this.totalBalance = totalBalance;
+	}
+
 	public List<BankAccount> getBankAccountList() {
 		return bankAccountList;
 	}
@@ -85,6 +97,14 @@ public class DanceCourse {
 		this.studentList = studentList;
 	}
 
+	public List<Lecture> getLectureList() {
+		return lectureList;
+	}
+
+	public void setLectureList(List<Lecture> lectureList) {
+		this.lectureList = lectureList;
+	}
+
 	@Override
 	public String toString() {
 		return "DanceCourse{" +
@@ -93,10 +113,12 @@ public class DanceCourse {
 				", founder='" + founder + '\'' +
 				", taxNumber='" + taxNumber + '\'' +
 				", taxOffice='" + taxOffice + '\'' +
+				", totalBalance=" + totalBalance +
 				", bankAccountList=" + bankAccountList +
 				", paymentMovementList=" + paymentMovementList +
 				", instructorList=" + instructorList +
 				", studentList=" + studentList +
+				", lectureList=" + lectureList +
 				'}';
 	}
 }

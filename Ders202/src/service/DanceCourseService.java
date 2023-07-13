@@ -1,8 +1,6 @@
 package service;
 
-import model.BankAccount;
-import model.DanceCourse;
-import model.PaymentMovement;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,18 +49,38 @@ public class DanceCourseService {
 		}
 	}
 
-	public void addPaymentMovement(DanceCourse danceCourse, List<PaymentMovement> paymentMovementList) {
+	public void addPaymentMovement(DanceCourse danceCourse, PaymentMovement paymentMovement) {
 		if (danceCourse.getPaymentMovementList() == null) {
 			danceCourse.setPaymentMovementList(new ArrayList<>());
 		}
-		danceCourse.getPaymentMovementList().addAll(paymentMovementList);
+		danceCourse.getPaymentMovementList().add(paymentMovement);
+		//list.of(paymentMovement); şeklinde atama yapıldığında direkt olarak yeni bir liste oluşlturarak atama yapıyor.
 	}
 
-	public void addInstructor(DanceCourse danceCourse, List<model.Instructor> instructorList) {
-		if (danceCourse.getInstructorList() == null) {
-			danceCourse.setInstructorList(new ArrayList<>());
+	public void addInstructor(DanceCourse danceCourse, Instructor instructor) {
+		BankAccountService bankAccountService = new BankAccountService();
+		PaymentMovementService paymentMovementService = new PaymentMovementService();
+
+		if (danceCourse.getBankAccountList() != null) {
+			BankAccount bankAccount = bankAccountService.getBankAccountWithEnoughMoney
+					(danceCourse.getBankAccountList(), instructor.getSalary());
+			if (bankAccount != null) {
+				PaymentMovement paymentMovement = paymentMovementService.createPaymentMovement(bankAccount,
+						"Eğitmen: " + instructor.getName() + " Maaş Ödemesi", MovementType.OUTCOME, instructor.getSalary());
+				bankAccount.setBalance(bankAccount.getBalance().subtract(instructor.getSalary()));
+				addPaymentMovement(danceCourse, paymentMovement);
+				if (danceCourse.getInstructorList() == null) {
+					danceCourse.setInstructorList(new ArrayList<>());
+					danceCourse.getInstructorList().add(instructor);
+				} else {
+					danceCourse.getInstructorList().add(instructor);
+				}
+			} else {
+				System.err.println("Yeterli bakiyesi olan hesap yok.");
+			}
+		} else {
+			System.out.println("Önce banka hesabı ekleyin.");
 		}
-		danceCourse.getInstructorList().addAll(instructorList);
 	}
 
 	public void addStudent(DanceCourse danceCourse, List<model.Student> studentList) {
@@ -70,5 +88,18 @@ public class DanceCourseService {
 			danceCourse.setStudentList(new ArrayList<>());
 		}
 		danceCourse.getStudentList().addAll(studentList);
+	}
+
+	public void addLecture(DanceCourse danceCourse, Lecture lecture) {
+		if (danceCourse.getLectureList() == null) {
+			danceCourse.setLectureList(new ArrayList<>());
+			danceCourse.getLectureList().add(lecture);
+		} else{
+		danceCourse.getLectureList().add(lecture);
+		}
+	}
+	/* danceCourse.setLectureList(list.of(lecture))*/
+	public void totalBalance(DanceCourse danceCourse){
+
 	}
 }
