@@ -7,8 +7,9 @@ import model.PaymentMovement;
 import java.math.BigDecimal;
 
 public class PaymentMovementService {
+	//	Creates a payment movement object with the given parameters.
 	public PaymentMovement createPaymentMovement(BankAccount bankAccount, String description, MovementType movementType,
-			BigDecimal amount) {
+												 BigDecimal amount) {
 		PaymentMovement paymentMovement = new PaymentMovement();
 		paymentMovement.setBankAccount(bankAccount);
 		paymentMovement.setDescription(description);

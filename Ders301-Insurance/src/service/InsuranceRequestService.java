@@ -8,10 +8,12 @@ import model.Vehicle;
 import java.util.ArrayList;
 
 public class InsuranceRequestService {
+	//	Creates a new insurance request with the given parameters.
 	public InsuranceRequest createInsuranceRequest(Vehicle vehicle, Policy policy) {
 		return new InsuranceRequest(vehicle, policy);
 	}
 
+	// Adds a proposal to the given insurance request.
 	public void addProposal(InsuranceRequest insuranceRequest, Proposal proposal) {
 		if (insuranceRequest.getProposalList() == null) {
 			insuranceRequest.setProposalList(new ArrayList<>());

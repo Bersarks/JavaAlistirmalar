@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class ProposalService {
+	//	Creates a proposal object with the given parameters.
 	public Proposal createProposal(InsuranceCompany insuranceCompany, Vehicle vehilce, BigDecimal offerPrice,
 								   BigDecimal discountPrice, boolean isApproved, Date startDate, Date endDate, Date expireDate) {
 		Proposal proposal = new Proposal();

@@ -7,8 +7,9 @@ import model.Vehicle;
 import java.util.ArrayList;
 
 public class VehicleService {
-	public Vehicle createVehicle (String model, String brand, String plate, String chassisNumber, int modelYear,
-								  ColorTypeEnum color) {
+	//	Creates a vehicle object with the given parameters.
+	public Vehicle createVehicle(String model, String brand, String plate, String chassisNumber, int modelYear,
+								 ColorTypeEnum color) {
 		Vehicle vehicle = new Vehicle();
 		vehicle.setModel(model);
 		vehicle.setBrand(brand);
@@ -19,7 +20,8 @@ public class VehicleService {
 		return vehicle;
 	}
 
-	public void addAccidentList (Vehicle vehicle, Accident accident) {
+	// Adds an accident to the vehicle's accident list.
+	public void addAccidentList(Vehicle vehicle, Accident accident) {
 		if (vehicle.getAccidentList() == null) {
 			vehicle.setAccidentList(new ArrayList<Accident>());
 		}
