@@ -2,6 +2,7 @@ package service;
 
 import model.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,17 +17,36 @@ public class DanceCourseService {
 		return danceCourse;
 	}
 
+	public void setTotalCapacity(DanceCourse danceCourse, int totalCapacity) {
+		danceCourse.setTotalCapacity(totalCapacity);
+	}
+
+	public boolean checkStudentsSex(DanceCourse danceCourse) {
+		int count = 0;
+		int count2 = 0;
+		for (Student student : danceCourse.getStudentList()) {
+			if (student.getSex().equals(Sex.FEMALE))
+				count++;
+			else
+				count2++;
+		}
+		return !((count > count2 + 2) || (count2 > count + 2));
+	}
+
 	public void addBankAccount(DanceCourse danceCourse, BankAccount bankAccount) {
 		if (danceCourse.getBankAccountList() == null) {
 			danceCourse.setBankAccountList(new ArrayList<>());
 			danceCourse.getBankAccountList().add(bankAccount);
+			totalBalance(danceCourse);
 		}// objelerde her zaman equals metodu ile karşılaştırma yapılır. "==" ile referans karşılaştırması yapıldığı için sıkıntı çıkabilir.
 		else {
 			for (BankAccount bankAccount2 : danceCourse.getBankAccountList()) {
 				if (bankAccount2.getIbanNo().equals(bankAccount.getIbanNo())) {
 					bankAccount2.setBalance(bankAccount2.getBalance().add(bankAccount.getBalance()));
+					totalBalance(danceCourse);
 				} else {
 					danceCourse.getBankAccountList().add(bankAccount);
+					totalBalance(danceCourse);
 				}
 			}
 		}
@@ -83,23 +103,45 @@ public class DanceCourseService {
 		}
 	}
 
-	public void addStudent(DanceCourse danceCourse, List<model.Student> studentList) {
+	public void addStudent(DanceCourse danceCourse, Student student) {
+		PaymentMovementService paymentMovementService = new PaymentMovementService();
+
 		if (danceCourse.getStudentList() == null) {
 			danceCourse.setStudentList(new ArrayList<>());
 		}
-		danceCourse.getStudentList().addAll(studentList);
+		if (checkStudentsSex(danceCourse)) {
+			PaymentMovement paymentMovement = paymentMovementService.createPaymentMovement(danceCourse.getBankAccountList().get(0), student.getName() + " Kayıt ücreti ödemesi.",
+					MovementType.INCOME, student.getContractAmount());
+			addPaymentMovement(danceCourse, paymentMovement);
+			student.setPaid(true);
+			danceCourse.getStudentList().add(student);
+		} else
+			System.out.println("Kursa kayıtlı öğrencilerin cinsiyetleri dengesiz.");
 	}
 
 	public void addLecture(DanceCourse danceCourse, Lecture lecture) {
 		if (danceCourse.getLectureList() == null) {
 			danceCourse.setLectureList(new ArrayList<>());
-			danceCourse.getLectureList().add(lecture);
-		} else{
-		danceCourse.getLectureList().add(lecture);
+			if (danceCourse.getTotalCapacity() - lecture.getCapacity() >= 0) {
+				danceCourse.getLectureList().add(lecture);
+				danceCourse.setTotalCapacity(danceCourse.getTotalCapacity() - lecture.getCapacity());
+			} else
+				System.out.println("Kapasite yetersiz.");
+		} else {
+			if (danceCourse.getTotalCapacity() - lecture.getCapacity() >= 0) {
+				danceCourse.getLectureList().add(lecture);
+				danceCourse.setTotalCapacity(danceCourse.getTotalCapacity() - lecture.getCapacity());
+			} else
+				System.out.println("Kapasite yetersiz.");
 		}
 	}
-	/* danceCourse.setLectureList(list.of(lecture))*/
-	public void totalBalance(DanceCourse danceCourse){
 
+	/* danceCourse.setLectureList(list.of(lecture))*/
+	public void totalBalance(DanceCourse danceCourse) {
+		BigDecimal totalBalance = BigDecimal.ZERO;
+		for (BankAccount bankAccount : danceCourse.getBankAccountList()) {
+			totalBalance = totalBalance.add(bankAccount.getBalance());
+		}
+		System.out.println("Toplam Bakiye: " + totalBalance);
 	}
 }

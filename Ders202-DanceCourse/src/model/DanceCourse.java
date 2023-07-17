@@ -10,6 +10,7 @@ public class DanceCourse {
 	private String taxNumber;
 	private String taxOffice;
 	private BigDecimal totalBalance;
+	private int totalCapacity;
 	private List<BankAccount> bankAccountList;
 	private List<PaymentMovement> paymentMovementList;
 	private List<Instructor> instructorList;
@@ -65,6 +66,14 @@ public class DanceCourse {
 		this.totalBalance = totalBalance;
 	}
 
+	public int getTotalCapacity() {
+		return totalCapacity;
+	}
+
+	public void setTotalCapacity(int totalCapacity) {
+		this.totalCapacity = totalCapacity;
+	}
+
 	public List<BankAccount> getBankAccountList() {
 		return bankAccountList;
 	}
@@ -114,6 +123,7 @@ public class DanceCourse {
 				", taxNumber='" + taxNumber + '\'' +
 				", taxOffice='" + taxOffice + '\'' +
 				", totalBalance=" + totalBalance +
+				", totalCapacity=" + totalCapacity +
 				", bankAccountList=" + bankAccountList +
 				", paymentMovementList=" + paymentMovementList +
 				", instructorList=" + instructorList +

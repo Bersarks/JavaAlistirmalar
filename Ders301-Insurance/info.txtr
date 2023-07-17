@@ -1,0 +1,28 @@
+
+// Allianz Sigorta Acentesi
+// Mom Acentesi
+/*
+* Admin paneli: Poliçe detayları ve müşteri isteklerinin girilebileceği bir panel olacak. Sigorta tipleri, müşterileri ekleme hangi şirketle çalışılacak.
+* Sigorta şirketi bilgileri ve sigorta tipleri.
+* Sisteme sigortaları şirketleri müşterileri tanımladık.
+* Teklif oluşturma.
+* Onay Durumu.
+* Kendi acentamıza müşterileri tanımlama.
+* Acentelere prim verilecek.
+* Poliçe çeşitleri oluşturulacak ve seçilebilmesi gerekli.
+* Her poliçe tipinden kazanılan prim oranı farklı olacak.
+* 3 farklı hesap (kasa) tutulacak.
+* Müşterinin bir acentede sigortası varsa yenisi yapılamaz (Ör: Mevcut trafik sigortası varsa yenisi yapılamaz.) Trafik ve Dask için geçerli.
+* Bir müşterinin birden fazla aracı olabilir.
+* Her aracın belirli sigorta geçmişi olacak (Ör: Kaza var mı yok mu?).
+* hasar bildirimi yapılabilmeli.
+*
+*
+*
+* Kullanıcı Paneli
+* Müşteri bilgileri
+
+müşteri acenteye gelir sigorta ypamak istediğini söyler, acente bilgileri alır ve çalıştığı şirketlerden teklif oluşturur. Müşterinin kabul ettiği teklifi poliçe olarak müşteriye verir.
+*
+Servisleri tanımlayacağız.
+* */

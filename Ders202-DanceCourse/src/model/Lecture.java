@@ -8,6 +8,7 @@ public class Lecture {
 	private Instructor instructor;
 	private Branch branch;
 	private int capacity;
+	private LectureType lectureType;
 	private Set<LectureScheduleTime> lectureScheduleTimeList;
 	private List<Student> studentList;
 
@@ -43,6 +44,14 @@ public class Lecture {
 		this.capacity = capacity;
 	}
 
+	public LectureType getLectureType() {
+		return lectureType;
+	}
+
+	public void setLectureType(LectureType lectureType) {
+		this.lectureType = lectureType;
+	}
+
 	public Set<LectureScheduleTime> getLectureScheduleTimeList() {
 		return lectureScheduleTimeList;
 	}
@@ -66,6 +75,7 @@ public class Lecture {
 				", instructor=" + instructor +
 				", branch=" + branch +
 				", capacity=" + capacity +
+				", lectureType=" + lectureType +
 				", lectureScheduleTimeList=" + lectureScheduleTimeList +
 				", studentList=" + studentList +
 				'}';

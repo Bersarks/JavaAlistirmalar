@@ -10,6 +10,11 @@ import java.util.List;
 
 public class InstructorService {
 	public Instructor createInstructor(String name, int age, Sex sex, BigDecimal salary) {
+		if (age > 53)
+		{
+			System.err.println("Instructor age cannot be greater than 53");
+			return null;
+		}
 		Instructor instructor = new Instructor();
 		instructor.setName(name);
 		instructor.setAge(age);

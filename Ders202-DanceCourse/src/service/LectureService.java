@@ -3,15 +3,26 @@ package service;
 import model.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class LectureService {
-	public Lecture createLecture(String name, Branch branch, int capacity) {
+	public Lecture createLecture(String name, Branch branch, int capacity, LectureType lectureType) {
 		Lecture lecture = new Lecture();
 		lecture.setName(name);
 		lecture.setBranch(branch);
-		lecture.setCapacity(capacity);
+		if (LectureType.SOLO.equals(lectureType)) {
+			lecture.setCapacity(capacity);
+		}
+		else {
+			if (capacity % 2 != 0)
+			{
+				System.err.println("Capacity must be even number for group lectures");
+				return null;
+			}
+			lecture.setCapacity(capacity);
+		}
 		return lecture;
 	}
 
@@ -28,11 +39,9 @@ public class LectureService {
 	}
 
 	public void autoGenerateScheduleTimeForLecture(Lecture lecture, RepeatedTime repeatedTime, String time){
-		/*if
-		*
-		* Ödev
-		*
-		*
-		* */
+		if (lecture.getLectureScheduleTimeList() == null) {
+			lecture.setLectureScheduleTimeList(new HashSet<>());
+		}
+
 	}
 }
