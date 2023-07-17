@@ -1,4 +1,5 @@
 package model;
+
 // ENUM yapısı sürekli değişmeyecek sabit seçeneklerimiz olduğunda kullanılır. Örneğin haftanın günleri sabit değişmez bir liste.
 public class Award {
 	private String name;
@@ -16,6 +17,7 @@ public class Award {
 		this.awardType = awardType;
 		this.awardCategory = awardCategory;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}

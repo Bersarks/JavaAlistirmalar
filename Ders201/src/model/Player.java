@@ -14,6 +14,7 @@ public class Player {
 
 	private List<TransferHistory> transferHistories;
 	private List<Team> teamList;
+
 	public Player(String name, String surname, int kitNumber, String position, int birthYear) {
 		this.name = name;
 		this.surname = surname;
@@ -21,6 +22,7 @@ public class Player {
 		this.position = position;
 		this.birthYear = birthYear;
 	}
+
 	public Player(String name, String surname, int kitNumber, String position, int birthYear, BigDecimal value, String currency) {
 		this.name = name;
 		this.surname = surname;
@@ -30,6 +32,7 @@ public class Player {
 		this.value = value;
 		this.currency = currency;
 	}
+
 	public String getName() {
 		return name;
 	}

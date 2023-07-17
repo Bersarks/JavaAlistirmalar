@@ -14,11 +14,12 @@ public class Team {
 	private String currency;
 	private List<Award> awards;
 
-	public Team(){
+	public Team() {
 
 	}
+
 	public Team(String name, String nickName, String colors, String coach, String president, String stadium,
-			BigDecimal budget, String currency) {
+				BigDecimal budget, String currency) {
 		this.name = name;
 		this.nickName = nickName;
 		this.colors = colors;
@@ -28,6 +29,7 @@ public class Team {
 		this.budget = budget;
 		this.currency = currency;
 	}
+
 	public String getName() {
 		return name;
 	}
