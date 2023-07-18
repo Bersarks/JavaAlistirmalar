@@ -2,6 +2,7 @@ package service;
 
 import model.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class AgencyService {
@@ -36,9 +37,68 @@ public class AgencyService {
 
 	// Adds Payment Movement to Agency's Payment Movement List.
 	public void addPaymentMovement(Agency agency, PaymentMovement paymentMovement) {
-		if (agency.getPaymentMovementList() == null) {
-			agency.setPaymentMovementList(new ArrayList<>());
+		if (agency.getBankAccountList() == null) {
+			System.err.println(agency.getName() + " has not bank account. Please add a bank account to move on.");
+		} else {
+			if (paymentMovement.getMovementType().equals(MovementType.INCOME)) {
+				if (agency.getPaymentMovementList() == null) {
+					agency.setPaymentMovementList(new ArrayList<>());
+				}
+				for (BankAccount bankAccount : agency.getBankAccountList()) {
+					if (bankAccount.getName().equals(paymentMovement.getBankAccount().getName())) {
+						bankAccount.setAmount(bankAccount.getAmount().add(paymentMovement.getAmount()));
+						agency.getPaymentMovementList().add(paymentMovement);
+						System.out.println("Successfully added payment movement to " + agency.getName() + ".");
+						System.out.println(paymentMovement.toString());
+						return;
+					}
+				}
+				agency.getBankAccountList().get(0).setAmount
+						(agency.getBankAccountList().get(0).getAmount().add(paymentMovement.getAmount()));
+				agency.getPaymentMovementList().add(paymentMovement);
+				System.out.println("Successfully added payment movement to " + agency.getName() + ".");
+				System.out.println(paymentMovement.toString());
+				return;
+			} else {
+				for (BankAccount bankAccount : agency.getBankAccountList()) {
+					if (bankAccount.equals(paymentMovement.getBankAccount())) {
+						if (agency.getPaymentMovementList() == null) {
+							agency.setPaymentMovementList(new ArrayList<>());
+						}
+						bankAccount.setAmount(bankAccount.getAmount().subtract(paymentMovement.getAmount()));
+						agency.getPaymentMovementList().add(paymentMovement);
+						System.out.println("Successfully added payment movement to " + agency.getName() + ".");
+						System.out.println(paymentMovement.toString());
+						return;
+					}
+				}
+			}
 		}
-		agency.getPaymentMovementList().add(paymentMovement);
+		System.err.println(agency.getName() + " has not enough balance to pay.");
+	}
+
+	public BankAccount checkBalanceForPayment(Agency agency, BigDecimal amount) {
+		for (BankAccount bankAccount : agency.getBankAccountList()) {
+			if (bankAccount.getAmount().compareTo(amount) >= 0) {
+				return bankAccount;
+			}
+		}
+		return null;
+	}
+	public void sendMoneyToInsuranceCompany(Agency agency, InsuranceCompany insuranceCompany, BigDecimal amount) {
+		PaymentMovementService paymentMovementService = new PaymentMovementService();
+		InsuranceCompanyService insuranceCompanyService = new InsuranceCompanyService();
+		for (InsuranceCompany agencyInsuranceCompany : agency.getInsuranceCompanyList()){
+			if (agencyInsuranceCompany.equals(insuranceCompany)){
+				PaymentMovement paymentMovement = paymentMovementService.createPaymentMovement(agency.getBankAccountList().get(0),
+						"Payment to Insurance Company", MovementType.OUTCOME, amount);
+				addPaymentMovement(agency, paymentMovement);
+				PaymentMovement paymentMovement1 = paymentMovementService.createPaymentMovement(agencyInsuranceCompany.getBankAccountList().get(0),
+						"Payment from Agency", MovementType.INCOME, amount);
+				insuranceCompanyService.addPaymentMovement(insuranceCompany, paymentMovement1);
+				System.out.println("Successfully sent money to insurance company.");
+				return;
+			}
+		}
 	}
 }
