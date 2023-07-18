@@ -28,7 +28,9 @@ public class Main {
 		insuranceCompanyService.addInsurance(insuranceCompany, insuranceService.createInsurance
 				(InsuranceTypeEnum.COMPULSORY_TRAFFIC_INSURANCE, "Zorunlu Trafik Sigortası"));
 		insuranceCompanyService.addBankAccount(insuranceCompany, bankAccountService.createBankAccount
-				("Yapı Kredi Bankası", "TR1234", BigDecimal.valueOf(5000000)));
+				("Ziraat Bankası", "TR1234", BigDecimal.valueOf(5000000)));
+		insuranceCompanyService.addBankAccount(insuranceCompany, bankAccountService.createBankAccount
+				("Yapı Kredi Bankası", "TR4321", BigDecimal.valueOf(3000000)));
 
 		Customer customer = customerService.createCustomer("MehmetÖz", CustomerTypeEnum.INDIVIDUAL);
 		customerService.addBankAccount(customer, bankAccountService.createBankAccount("Yapı Kredi Bankası",

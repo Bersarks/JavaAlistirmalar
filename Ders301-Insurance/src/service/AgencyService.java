@@ -90,10 +90,10 @@ public class AgencyService {
 		InsuranceCompanyService insuranceCompanyService = new InsuranceCompanyService();
 		for (InsuranceCompany agencyInsuranceCompany : agency.getInsuranceCompanyList()){
 			if (agencyInsuranceCompany.equals(insuranceCompany)){
-				PaymentMovement paymentMovement = paymentMovementService.createPaymentMovement(agency.getBankAccountList().get(0),
+				PaymentMovement paymentMovement = paymentMovementService.createPaymentMovement(checkBalanceForPayment(agency, amount),
 						"Payment to Insurance Company", MovementType.OUTCOME, amount);
 				addPaymentMovement(agency, paymentMovement);
-				PaymentMovement paymentMovement1 = paymentMovementService.createPaymentMovement(agencyInsuranceCompany.getBankAccountList().get(0),
+				PaymentMovement paymentMovement1 = paymentMovementService.createPaymentMovement(checkBalanceForPayment(agency, amount),
 						"Payment from Agency", MovementType.INCOME, amount);
 				insuranceCompanyService.addPaymentMovement(insuranceCompany, paymentMovement1);
 				System.out.println("Successfully sent money to insurance company.");
