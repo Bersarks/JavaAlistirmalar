@@ -4,7 +4,9 @@ import model.Accident;
 import model.ColorTypeEnum;
 import model.Vehicle;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VehicleService {
 	//	Creates a vehicle object with the given parameters.
@@ -21,10 +23,23 @@ public class VehicleService {
 	}
 
 	// Adds an accident to the vehicle's accident list.
-	public void addAccidentList(Vehicle vehicle, Accident accident) {
+	public void addAccident(Vehicle vehicle, Accident accident) {
 		if (vehicle.getAccidentList() == null) {
 			vehicle.setAccidentList(new ArrayList<Accident>());
 		}
 		vehicle.getAccidentList().add(accident);
+	}
+
+	public BigDecimal calculateTotalDamagePrice(Vehicle vehicle) {
+		BigDecimal totalDamagePrice = new BigDecimal(0);
+		if (vehicle.getAccidentList() == null) {
+			return totalDamagePrice;
+		}
+		for (Accident accident : vehicle.getAccidentList()) {
+			if (accident.getDamagePrice() != null) {
+				totalDamagePrice = totalDamagePrice.add(accident.getDamagePrice());
+			}
+		}
+		return totalDamagePrice;
 	}
 }

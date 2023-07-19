@@ -3,8 +3,6 @@ import service.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.Date;
 
 public class Main {
 
@@ -21,7 +19,8 @@ public class Main {
 		VehicleService vehicleService = new VehicleService();
 
 		Agency agency = agencyService.createAgency("MOM Insurance");
-		agencyService.addBankAccount(agency, bankAccountService.createBankAccount("Yapı Kredi Bankası", "TR99999", BigDecimal.valueOf(100000)));
+		agencyService.addBankAccount(agency, bankAccountService.createBankAccount("Yapı Kredi Bankası",
+				"TR99999", BigDecimal.valueOf(100000)));
 
 		InsuranceCompany insuranceCompany = insuranceCompanyService.createInsuranceCompany("Allianz",
 				"Ataşehir", "0216 000 00 00", "Kozyatağı/Ataşehir/İstanbul", BigDecimal.valueOf(0.08));
@@ -34,7 +33,7 @@ public class Main {
 
 		Customer customer = customerService.createCustomer("MehmetÖz", CustomerTypeEnum.INDIVIDUAL);
 		customerService.addBankAccount(customer, bankAccountService.createBankAccount("Yapı Kredi Bankası",
-				"TR5678", BigDecimal.valueOf(5000)));
+				"TR5678", BigDecimal.valueOf(50000)));
 		customerService.addVehicle(customer, vehicleService.createVehicle("Mercedes", "C180",
 				"34 ABC 34", "ASCS1236734", 2014, ColorTypeEnum.BLACK));
 		agencyService.addCustomer(agency, customer);
@@ -42,6 +41,10 @@ public class Main {
 
 		customerService.addInsuranceRequest(customer, insuranceRequestService.createInsuranceRequest
 				(customer.getVehicleList().get(0)));
+
+		Accident accident = accidentService.createAccident(LocalDate.now(), "Trafik Kazası Gerçekleşti",
+				BigDecimal.valueOf(85000), 0);
+		vehicleService.addAccident(customer.getVehicleList().get(0), accident);
 
 		Proposal proposal = proposalService.createProposal(insuranceCompany, customer.getVehicleList().get(0),
 				BigDecimal.valueOf(5000), BigDecimal.valueOf(500), LocalDate.of(2023, 07, 18),
@@ -52,8 +55,7 @@ public class Main {
 		insuranceCompanyService.sendCommissionToAgency(agency, agency.getInsuranceCompanyList().get(0));
 
 		System.out.println(customer.getBankAccountList().toString() + "\n" + customer.getPaymentMovementList().toString());
-		System.out.println("\n" +agency.getName() + "\n"+ agency.getBankAccountList().toString() + "\n" + agency.getPaymentMovementList().toString());
+		System.out.println("\n" + agency.getName() + "\n" + agency.getBankAccountList().toString() + "\n" + agency.getPaymentMovementList().toString());
 		System.out.println("\n" + agency.getInsuranceCompanyList().toString());
-
 	}
 }

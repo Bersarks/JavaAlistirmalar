@@ -103,7 +103,7 @@ public class CustomerService {
 // generate policy methodu yaz
 	public void acceptProposal(Customer customer, Proposal proposal, Agency agency) {
 		PaymentMovementService paymentMovementService = new PaymentMovementService();
-		InsuranceCompanyService insuranceCompanyService = new InsuranceCompanyService();
+		//InsuranceCompanyService insuranceCompanyService = new InsuranceCompanyService();
 		InsuranceRequestService insuranceRequestService = new InsuranceRequestService();
 		AgencyService agencyService = new AgencyService();
 		PolicyService policyService = new PolicyService();
