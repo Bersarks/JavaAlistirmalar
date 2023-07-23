@@ -9,8 +9,7 @@ public class Main {
 
 	// main method
 	public static void main(String args[]) {
-		Transcript transcript = new Transcript();
-		transcript.setStudentId(1112234);
+		Transcript transcript = new Transcript(1112234);
 		CourseGrade courseGrade1 = new CourseGrade("COMP", 201, 4, Grade.A);
 		CourseGrade courseGrade2 = new CourseGrade("MATH", 101);
 		CourseGrade courseGrade3 = new CourseGrade("ECE");

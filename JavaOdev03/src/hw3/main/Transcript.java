@@ -8,6 +8,10 @@ public class Transcript {
 	List<CourseGrade> courseList;
 	private double gpa;
 
+	public Transcript(int studentId) {
+		setStudentId(studentId);
+		setGpa(0.0);
+	}
 	public int getStudentId() {
 		return studentId;
 	}
