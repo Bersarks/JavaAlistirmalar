@@ -27,6 +27,14 @@ public class CourseGrade {
 		this.setGradeTaken(courseGrade);
 	}
 
+	//Constructor with double grade value
+	public CourseGrade(String courseDepartment, int courseCode, int courseCredit, double courseGrade) {
+		this.setCourseDepartment(courseDepartment);
+		this.setCourseCode(courseCode);
+		this.setCourseCredit(courseCredit);
+		this.setGradeTaken(courseGrade);
+	}
+
 	public String getCourseDepartment() {
 		return courseDepartment;
 	}
@@ -64,7 +72,7 @@ public class CourseGrade {
 	/* courseCredit is an integer that indicates how many credits the course is worth. The only
 	 *valid values are 3 and 4. */
 	public void setCourseCredit(int courseCredit) {
-		if (courseCredit == 3 || courseCredit == 4){
+		if (courseCredit == 3 || courseCredit == 4) {
 			this.courseCredit = courseCredit;
 		} else {
 			this.courseCredit = 4;
@@ -78,8 +86,9 @@ public class CourseGrade {
 	public void setGradeTaken(Grade gradeTaken) {
 		this.gradeTaken = gradeTaken;
 	}
+
 	public void setGradeTaken(double val) {
-		if (val >= 0.0 && val <= 4.0){
+		if (val >= 0.0 && val <= 4.0) {
 			if (val >= 0.0 && val < 0.5)
 				this.gradeTaken = Grade.F;
 			else if (val >= 0.5 && val < 1.5)

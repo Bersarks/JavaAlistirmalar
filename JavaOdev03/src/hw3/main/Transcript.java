@@ -1,5 +1,6 @@
 package hw3.main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Transcript {
@@ -21,6 +22,15 @@ public class Transcript {
 
 	public void setCourseList(List<CourseGrade> courseList) {
 		this.courseList = courseList;
+	}
+	public void addCourseToList(CourseGrade courseGrade) {
+		if (this.getCourseList() == null) {
+			setCourseList(new ArrayList<CourseGrade>());
+			getCourseList().add(courseGrade);
+		} else {
+			getCourseList().add(courseGrade);
+		}
+		calculateGpa();
 	}
 
 	public double getGpa() {
@@ -51,7 +61,7 @@ public class Transcript {
 			toString += course.toString();
 		}
 		calculateGpa();
-		toString += "GPA: " + gpa;
+		toString += "GPA: " + String.format("%.1f", gpa);
 		return toString;
 	}
 }
