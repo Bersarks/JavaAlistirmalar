@@ -33,6 +33,10 @@ public class Transcript {
 	private void calculateGpa() {
 		double total = 0;
 		int totalCredits = 0;
+		if (courseList == null){
+			gpa = 0;
+			return;
+		}
 		for (CourseGrade course : courseList) {
 			total += course.getGradeTaken().letterGrade * course.getCourseCredit();
 			totalCredits += course.getCourseCredit();
