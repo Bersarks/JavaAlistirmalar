@@ -13,7 +13,7 @@ public class Main {
 		CourseGrade courseGrade1 = new CourseGrade("COMP", 201, 4, Grade.A);
 		CourseGrade courseGrade2 = new CourseGrade("MATH", 101);
 		CourseGrade courseGrade3 = new CourseGrade("ECE");
-		CourseGrade courseGrade4 = new CourseGrade("COMP", 201, 4);
+		CourseGrade courseGrade4 = new CourseGrade("COMP", 201, 4,3.7);
 
 		List<CourseGrade> courseList = new ArrayList<>();
 		courseList.add(courseGrade1);
