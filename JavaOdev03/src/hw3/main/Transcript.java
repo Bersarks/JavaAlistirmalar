@@ -29,7 +29,7 @@ public class Transcript {
 	}
 	public void addCourseToList(CourseGrade courseGrade) {
 		if (this.getCourseList() == null) {
-			setCourseList(new ArrayList<CourseGrade>());
+			courseList = new ArrayList<>();
 			getCourseList().add(courseGrade);
 		} else {
 			getCourseList().add(courseGrade);

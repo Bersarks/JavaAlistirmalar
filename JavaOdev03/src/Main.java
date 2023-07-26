@@ -1,4 +1,5 @@
 import hw3.main.CourseGrade;
+import hw3.main.GenerateTranscript;
 import hw3.main.Transcript;
 import hw3.util.Grade;
 
@@ -9,7 +10,7 @@ public class Main {
 
 	// main method
 	public static void main(String args[]) {
-		Transcript transcript = new Transcript(1112234);
+/*		Transcript transcript = new Transcript(1112234);
 		CourseGrade courseGrade1 = new CourseGrade("COMP", 201, 4, Grade.A);
 		CourseGrade courseGrade2 = new CourseGrade("MATH", 101);
 		CourseGrade courseGrade3 = new CourseGrade("ECE");
@@ -21,6 +22,9 @@ public class Main {
 		courseList.add(courseGrade3);
 		transcript.setCourseList(courseList);
 		transcript.addCourseToList(courseGrade4);
-		System.out.println(transcript.toString());
+		System.out.println(transcript.toString());*/
+		GenerateTranscript generateTranscript = new GenerateTranscript();
+		//generateTranscript.takeInputFromUsers();
+		generateTranscript.takeInputFromFile();
 	}
 }
