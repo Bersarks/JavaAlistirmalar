@@ -133,4 +133,66 @@ public class GameService {
 		}
 		return 0;
 	}
+
+	public int startGame(Player player1, Player player2, int round, List<Pokemon> pokemonList){
+		Random rand = new Random();
+		Scanner scn = new Scanner(System.in);
+		while (!(player1.isWinner() && player2.isWinner())) {
+			int wheatherValue = rand.nextInt(4);
+			WheatherTypeEnum wheather = WheatherTypeEnum.values()[wheatherValue];
+			System.out.println(wheather.name() + " wheather is started");
+			int random = rand.nextInt(2);
+			if (random == 0) {
+				System.out.println("Player 1 will attack");
+				System.out.println("if you want use your pokemon special power press 1\n" +
+						"if you want to use your both special power 2\n" +
+						"if you want to use your character special power press 3\n" +
+						"if you want to normal attack 4");
+				int choice = scn.nextInt();
+				if (choice == 1) {
+					fight(player1, player2, true, false, wheather);
+				} else if (choice == 2) {
+					fight(player1, player2, true, true, wheather);
+				} else if (choice == 3) {
+					fight(player1, player2, false, true, wheather);
+				} else if (choice ==4) {
+					fight(player1, player2, false, false, wheather);
+				} else {
+					System.out.println("Wrong choice");
+				}
+			} else {
+				System.out.println("Player 2 will attack");
+				System.out.println("if you want use your pokemon special power press 1\n" +
+						"if you want to use your both special power 2\n" +
+						"if you want to use your character special power press 3\n" +
+						"if you want to normal attack 4");
+				int choice = scn.nextInt();
+				if (choice == 1) {
+					fight(player2, player1, true, false, wheather);
+				} else if (choice == 2) {
+					fight(player2, player1, true, true, wheather);
+				} else if (choice == 3) {
+					fight(player2, player1, false, true, wheather);
+				} else if (choice == 4) {
+					fight(player2, player1, false, false, wheather);
+				} else {
+					System.out.println("Wrong choice");
+				}
+				System.out.println("-----------------------------------");
+			}
+			if (checkPokemonHealth(player1)) {
+				System.out.println("Player 2 won the round");
+				endOfRoundAdjusments(player2, player1, pokemonList);
+				round ++;
+				break;
+			}
+			if (checkPokemonHealth(player2)) {
+				System.out.println("Player 1 won the round");
+				endOfRoundAdjusments(player1, player2, pokemonList);
+				round++;
+				break;
+			}
+		}
+		return round;
+	}
 }

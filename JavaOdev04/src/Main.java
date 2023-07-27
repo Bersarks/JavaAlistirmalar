@@ -1,7 +1,6 @@
 import model.Character;
 import model.Player;
 import model.Pokemon;
-import model.WheatherTypeEnum;
 import service.CharacterService;
 import service.GameService;
 import service.LoadService;
@@ -47,62 +46,7 @@ public class Main {
 				System.out.println("Player 2 Please choose a pokemon");
 				characterService.addPokemon(player2, pokemonList);
 			}
-			while (!(player1.isWinner() && player2.isWinner())) {
-				int wheatherValue = rand.nextInt(4);
-				WheatherTypeEnum wheather = WheatherTypeEnum.values()[wheatherValue];
-				System.out.println(wheather.name() + " wheather is started");
-				int random = rand.nextInt(2);
-				if (random == 0) {
-					System.out.println("Player 1 will attack");
-					System.out.println("if you want use your pokemon special power press 1\n" +
-							"if you want to use your both special power 2\n" +
-							"if you want to use your character special power press 3\n" +
-							"if you want to normal attack 4");
-					int choice = scn.nextInt();
-					if (choice == 1) {
-						gameService.fight(player1, player2, true, false, wheather);
-					} else if (choice == 2) {
-						gameService.fight(player1, player2, true, true, wheather);
-					} else if (choice == 3) {
-						gameService.fight(player1, player2, false, true, wheather);
-					} else if (choice ==4) {
-						gameService.fight(player1, player2, false, false, wheather);
-					} else {
-						System.out.println("Wrong choice");
-					}
-				} else {
-					System.out.println("Player 2 will attack");
-					System.out.println("if you want use your pokemon special power press 1\n" +
-							"if you want to use your both special power 2\n" +
-							"if you want to use your character special power press 3\n" +
-							"if you want to normal attack 4");
-					int choice = scn.nextInt();
-					if (choice == 1) {
-						gameService.fight(player2, player1, true, false, wheather);
-					} else if (choice == 2) {
-						gameService.fight(player2, player1, true, true, wheather);
-					} else if (choice == 3) {
-						gameService.fight(player2, player1, false, true, wheather);
-					} else if (choice == 4) {
-						gameService.fight(player2, player1, false, false, wheather);
-					} else {
-						System.out.println("Wrong choice");
-					}
-					System.out.println("-----------------------------------");
-				}
-				if (gameService.checkPokemonHealth(player1)) {
-					System.out.println("Player 2 won the round");
-					gameService.endOfRoundAdjusments(player2, player1, pokemonList);
-					round++;
-					break;
-				}
-				if (gameService.checkPokemonHealth(player2)) {
-					System.out.println("Player 1 won the round");
-					gameService.endOfRoundAdjusments(player1, player2, pokemonList);
-					round++;
-					break;
-				}
-			}
+			round = gameService.startGame(player1, player2, round, pokemonList);
 		}
 	}
 }
