@@ -43,7 +43,6 @@ public class GenerateTranscript {
 				if (studentId == 0){
 					line = dataReader.nextLine();
 					studentId = Integer.parseInt(line);
-					System.out.println(studentId);
 					transcript.setStudentId(studentId);
 				}
 				line = dataReader.nextLine();
