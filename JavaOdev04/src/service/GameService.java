@@ -1,26 +1,31 @@
 package service;
 
 import model.*;
+import model.Character;
 
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class GameService {
+	// General game fight flow. This method is called from Main.java. It takes two players as parameters.
 	public void fight(Player attacker, Player defender, boolean isPokeSpecialPower, boolean isCharSpecialPower,
 					  WheatherTypeEnum wheatherType){
 
 		CharacterService characterService = new CharacterService();
 		if (attacker.getCharacter().getPokemons().size() > 1){
-			System.out.println("Are you want to change your pokemon? (y/n)");
+			System.out.println("Do you want to change your pokemon? (y/n)");
 			Scanner scanner = new Scanner(System.in);
 			String choice = scanner.nextLine();
 			if (choice.equals("y")) {
 				characterService.selectPokemon(attacker);
+			} else if (attacker.getCharacter().getSelectedPokemon().getHp() <= 0){
+				System.out.println("Your pokemon is dead, you have to change your pokemon");
+				characterService.selectPokemon(attacker);
 			}
 		}
 		Pokemon attackerPokemon = attacker.getCharacter().getSelectedPokemon();
-		Pokemon defenderPokemon = defender.getCharacter().getPokemons().get(0);
+		Pokemon defenderPokemon = defender.getCharacter().getSelectedPokemon();
 		if (isPokeSpecialPower && isCharSpecialPower) {
 			if (attackerPokemon.getSpecialPower().getUsageCount() == 0 && attacker.getCharacter().getSpecialPower().getUsageCount() == 0) {
 				System.out.println("Special power is not available, " + attacker.getName() + " missed the turn");
@@ -69,6 +74,9 @@ public class GameService {
 	public boolean checkPokemonHealth(Player player) {
 		for (Pokemon pokemon : player.getCharacter().getPokemons()) {
 			if (pokemon.getHp() > 0) {
+				if (player.getCharacter().getSelectedPokemon().getHp() <= 0) {
+					player.getCharacter().setSelectedPokemon(pokemon);
+				}
 				return false;
 			}
 		}
@@ -87,11 +95,12 @@ public class GameService {
 		}
 		Pokemon temp = pokemons.get(0);
 		for (Pokemon pokemon : pokemons){
-			if (temp.getAttack() < pokemon.getAttack()){
+			if (temp.getAttack() > pokemon.getAttack()){
 				temp = pokemon;
 			}
 		}
 		loser.getCharacter().getPokemons().add(temp);
+		loser.getCharacter().setSelectedPokemon(temp);
 		pokemonService.updatePokemons(pokemons, temp);
 	}
 
@@ -134,7 +143,39 @@ public class GameService {
 		return 0;
 	}
 
-	public int startGame(Player player1, Player player2, int round, List<Pokemon> pokemonList){
+	public void startGame(List<Character> characterList, List<Pokemon> pokemonList) {
+		Scanner scn = new Scanner(System.in);
+		PlayerService playerService = new PlayerService();
+		CharacterService characterService = new CharacterService();
+		System.out.println("Welcome to Pokemon Game");
+		System.out.println("Player 1 Please enter your name");
+		Player player1 = playerService.createPlayer(scn.nextLine(), null);
+		System.out.println("Player 2 Please enter your name");
+		Player player2 = playerService.createPlayer(scn.nextLine(), null);
+		int round = 0;
+		while (round != 2) {
+			if (player1.getCharacter() == null || player2.getCharacter() == null) {
+				if (player1.getCharacter() == null) {
+					System.out.println("Player 1 Please choose a character");
+					playerService.chooseCharacter(player1, characterList);
+				}
+				if (player2.getCharacter() == null) {
+					System.out.println("Player 2 Please choose a character");
+					playerService.chooseCharacter(player2, characterList);
+				}
+			}
+			if (player1.getCharacter().getPokemons().isEmpty()) {
+				System.out.println("Player 1 Please choose a pokemon");
+				characterService.addPokemon(player1, pokemonList);
+			}
+			if (player2.getCharacter().getPokemons().isEmpty()) {
+				System.out.println("Player 2 Please choose a pokemon");
+				characterService.addPokemon(player2, pokemonList);
+			}
+			round = startMatch(player1, player2, round, pokemonList);
+		}
+	}
+	public int startMatch(Player player1, Player player2, int round, List<Pokemon> pokemonList){
 		Random rand = new Random();
 		Scanner scn = new Scanner(System.in);
 		while (!(player1.isWinner() && player2.isWinner())) {

@@ -20,11 +20,11 @@ public class LoadService {
 		ArrayList<Pokemon> pokemons = new ArrayList<>();
 		Pokemon pikachu = new Pikachu("Pikachu", 100, 20, TypeEnum.ELECTRIC,
 				new SpecialPower("Lighting Strike", 15, 1));
-		Pokemon charmender = new Charmender("Charmander", 100, 20, TypeEnum.FIRE,
+		Pokemon charmender = new Charmender("Charmander", 100, 23, TypeEnum.FIRE,
 				new SpecialPower("Flame Ball", 25, 1));
-		Pokemon jigglypuff = new Jigglypuff("jigglypuff", 100, 20, TypeEnum.FAIRY,
+		Pokemon jigglypuff = new Jigglypuff("jigglypuff", 100, 15, TypeEnum.FAIRY,
 				new SpecialPower("Sing", 15, 1));
-		Pokemon bulbasaur = new Bulbasaur("Bulbasaur", 100, 20, TypeEnum.GRASS,
+		Pokemon bulbasaur = new Bulbasaur("Bulbasaur", 100, 19, TypeEnum.GRASS,
 				new SpecialPower("Vine Whip", 20, 1));
 		Pokemon squirtle = new Squirtle("Squirtle", 100, 17, TypeEnum.WATER,
 				new SpecialPower("Vine Whip", 20, 1));
@@ -32,6 +32,7 @@ public class LoadService {
 		pokemons.add(charmender);
 		pokemons.add(jigglypuff);
 		pokemons.add(bulbasaur);
+		pokemons.add(squirtle);
 		return pokemons;
 	}
 }
