@@ -86,7 +86,7 @@ public class GameService {
 				System.out.println("You lost a life");
 				return 1;
 			} else {
-				System.out.println("Game over");
+				System.out.println("You are dead. Game over");
 				System.exit(0);
 			}
 		}
