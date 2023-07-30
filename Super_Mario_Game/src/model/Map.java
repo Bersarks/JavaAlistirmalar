@@ -6,6 +6,7 @@ import java.util.Arrays;
 public class Map {
 	private String name;
 	private String mapType;
+	private int coinCount = 0;
 	private int xLenght;
 	private int yLenght;
 	private BaseCharacter[][] mapCoordinates;
@@ -32,6 +33,14 @@ public class Map {
 
 	public void setMapType(String mapType) {
 		this.mapType = mapType;
+	}
+
+	public int getCoinCount() {
+		return coinCount;
+	}
+
+	public void setCoinCount(int coinCount) {
+		this.coinCount = coinCount;
 	}
 
 	public int getxLenght() {

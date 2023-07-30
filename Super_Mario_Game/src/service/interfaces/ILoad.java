@@ -1,14 +1,12 @@
 package service.interfaces;
 
-import model.Map;
-import model.Mario;
-import model.MarioBaseCharacter;
-import model.Villain;
+import model.*;
 
 import java.util.List;
 
 public interface ILoad {
 	public List<Villain> loadVillains();
+	public List<Collectible> loadCollectibles();
 	public MarioBaseCharacter loadMario();
 	public MarioBaseCharacter loadLuigi();
 	public Map loadMap();
