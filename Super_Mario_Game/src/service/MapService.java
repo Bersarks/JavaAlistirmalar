@@ -44,6 +44,7 @@ public class MapService implements IMap {
 
 	@Override
 	public void printMap(Map map) {
+		System.out.println("****************************************************************************");
 		for (int i = 0; i < map.getMapCoordinates().length; i++) {
 			for (int j = 0; j < map.getMapCoordinates()[i].length; j++) {
 				if (map.getMapCoordinates()[i][j] == null) {
@@ -54,6 +55,7 @@ public class MapService implements IMap {
 			}
 			System.out.println("");
 		}
+		System.out.println("****************************************************************************");
 	}
 
 	public int checkMap(Map map, int x, int y){
