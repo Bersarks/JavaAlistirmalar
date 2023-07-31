@@ -15,4 +15,4 @@
 - You can collect coins. İf you collect all coins in the map you win the game.
 
 ## Purpose
-- This project aims to improve interfaces, inheritance and abstraction in java.
+- This project aims to improve skills in interfaces, inheritance, and abstraction in Java..
